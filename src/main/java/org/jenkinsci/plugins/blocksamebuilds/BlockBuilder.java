@@ -117,8 +117,9 @@ public class BlockBuilder extends Builder {
 							continue;
 						}
 
-						listener.getLogger().println(MessageFormat.format("compare {0} with {1}",
-								run.getFullDisplayName(), build.getFullDisplayName()));
+						// listener.getLogger().println(MessageFormat.format("compare
+						// {0} with {1}",
+						// run.getFullDisplayName(), build.getFullDisplayName()));
 
 						Boolean hasTheSameBuild = true;
 						Build<?, ?> b = (Build<?, ?>) run;
@@ -134,8 +135,8 @@ public class BlockBuilder extends Builder {
 						for (String key : chkVars) {
 							String varVal = buildVars.get(key).trim();
 							String curVarVal = curBuildVars.get(key).trim();
-							listener.getLogger()
-									.println(MessageFormat.format("[{0}]: [{1}] <---> [{2}]", key, curVarVal, varVal));
+//							listener.getLogger()
+//									.println(MessageFormat.format("[{0}]: [{1}] <---> [{2}]", key, curVarVal, varVal));
 							if (!curVarVal.equalsIgnoreCase(varVal)) {
 								hasTheSameBuild = false;
 								break;
