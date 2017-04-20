@@ -1,0 +1,10 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+<f:optionalBlock name="on"
+                     title="Check parameters with the same value for running builds"
+                     checked="${instance != null and instance.on}"
+                     inline="true">
+	  <f:entry title="Parameters to Check" field="checkPars">
+	    <f:textbox />
+	  </f:entry>
+  </f:optionalBlock>
+</j:jelly>
