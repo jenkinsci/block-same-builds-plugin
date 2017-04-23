@@ -8,7 +8,7 @@
 		<artifactId>plugin</artifactId>
 		<version>2.11</version>
 	</parent>
-	<artifactId>block_same_builds</artifactId>
+	<artifactId>block-same-builds</artifactId>
 	<version>1.1</version>
 	<packaging>hpi</packaging>
 
