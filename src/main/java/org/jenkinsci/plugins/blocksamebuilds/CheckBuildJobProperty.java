@@ -21,6 +21,7 @@ import hudson.Launcher;
 import hudson.model.AbstractBuild;
 import hudson.model.Build;
 import hudson.model.BuildListener;
+import hudson.model.Executor;
 import hudson.model.Job;
 import hudson.model.JobProperty;
 import hudson.model.JobPropertyDescriptor;
@@ -74,6 +75,7 @@ public class CheckBuildJobProperty extends JobProperty<Job<?, ?>> {
 		Map<String, String> curBuildVars = build.getBuildVariables();
 		List<String> chkVars = new ArrayList<String>(Arrays.asList(getCheckPars().trim().split(",")));
 		boolean isAuthenticated = Jenkins.getAuthentication().isAuthenticated();
+		Jenkins j = Jenkins.getInstance();
 
 		try {
 			if (chkVars.contains("")) {
@@ -138,12 +140,19 @@ public class CheckBuildJobProperty extends JobProperty<Job<?, ?>> {
 
 						isExisted |= hasTheSameBuild;
 						if (isExisted && isTheSameUsr) {
+							String msg = "";
+							if (null != j) {
+								msg = MessageFormat.format(
+										"The job[{0}] which has the same parameters triggered by user[{1}] is running!",
+										j.getRootUrl() + targetBuildUrl, curUsr);
+							}
 							targetBuildUrl = run.getUrl();
-							String msg = MessageFormat.format(
-									"The job[{0}] which has the same parameters triggered by user[{1}] is running!",
-									Jenkins.getInstance().getRootUrl() + targetBuildUrl, curUsr);
-							listener.getLogger().println(msg + "\nAborting this job...");
-							build.getExecutor().interrupt(Result.NOT_BUILT, new StopBuildCause("Reason: " + msg));
+							Executor exe = build.getExecutor();
+							if (null != exe) {
+								exe.interrupt(Result.NOT_BUILT, new StopBuildCause("Reason: " + msg));
+							} else {
+								listener.getLogger().println("Can't get executor");
+							}
 							break;
 						}
 					}
