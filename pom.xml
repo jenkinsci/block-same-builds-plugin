@@ -9,7 +9,7 @@
 		<version>2.11</version>
 	</parent>
 	<artifactId>block-same-builds</artifactId>
-	<version>1.1</version>
+	<version>1.2-SNAPSHOT</version>
 	<packaging>hpi</packaging>
 
 	<properties>
